@@ -35,6 +35,7 @@ class Books(models.Model):
     revision = models.CharField(max_length = 4)
     publication = models.ForeignKey(Publication, on_delete=models.DO_NOTHING)
     category = models.ManyToManyField(Category)
+    description = models.CharField(max_length = 500)
     def __str__(self):
         return self.bname
 
