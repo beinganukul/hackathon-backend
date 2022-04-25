@@ -9,4 +9,6 @@ urlpatterns = [
         path('v1/users', views.getUser),
         path('v1/user/<str:pk>', views.getProfile),
         path('v1/account/register', views.RegistrationView.as_view()), 
+        path('v1/account/logout', views.userlogout),
+        #path('v1/account/change-password', views.ChangePasswordView.as_view()),
         ]

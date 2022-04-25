@@ -15,7 +15,7 @@ class BookSerializer(serializers.ModelSerializer):
 class ProfileSerializer(serializers.ModelSerializer):
     class Meta:
         model = NewUser
-        fields = '__all__'
+        fields = ['id', 'user_name', 'first_name', 'last_name', 'phone', 'email', 'credit', 'note'] 
 
 class RegistrationSerializer(serializers.ModelSerializer):
     password2 = serializers.CharField(style={"input_type": "password"}, write_only=True)
