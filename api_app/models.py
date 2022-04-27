@@ -1,4 +1,4 @@
-from django.db import models 
+from django.db import models
 from django.core.validators import MaxValueValidator
 from django.contrib.auth.models import AbstractBaseUser, BaseUserManager, PermissionsMixin
 from django.utils.translation import gettext_lazy as _
@@ -51,16 +51,16 @@ class Books(models.Model):
         return self.bname
 
 class NewUser(AbstractBaseUser, PermissionsMixin):
-    book = models.ManyToManyField(Books)
+    book = models.ManyToManyField(Books,null=True,blank=True)
     user_name = models.CharField(max_length=50, unique=True)
     first_name = models.CharField(max_length = 50)
     last_name = models.CharField(max_length = 50)
-    phone = models.IntegerField(null=True)
+    phone = models.IntegerField(null=True,blank=True)
     #(validators=[MaxValueValidator(999999999)])
     email = models.EmailField(unique=True)
     credit = models.IntegerField(default = 10)
     #(validators=[MaxValueValidator(999)])
-    note = models.CharField(max_length = 300)
+    note = models.CharField(max_length = 300,null=True, blank=True)
     invites = models.IntegerField(validators = [MaxValueValidator(2)], default=0)
     objects = CustomAccountManager()
     is_staff = models.BooleanField(default=False)
@@ -69,12 +69,9 @@ class NewUser(AbstractBaseUser, PermissionsMixin):
     REQUIRED_FIELDS = ['user_name', 'first_name', 'last_name']
 
     def __str__(self):
-        return self.first_name + ' ' + self.last_name 
+        return self.first_name + ' ' + self.last_name
 class Email(models.Model):
     email = models.EmailField(unique=True)
     is_registered = models.BooleanField(default=False)
     def __str__(self):
         return self.email
-
-
-
