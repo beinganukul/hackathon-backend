@@ -8,4 +8,3 @@ admin.site.register(SubCategory)
 admin.site.register(NewUser)
 admin.site.register(Books)
 admin.site.register(Email)
-
