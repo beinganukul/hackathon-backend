@@ -52,28 +52,8 @@ class CustomAccountManager(BaseUserManager):
         user.save()
         return user
 
-class Books(models.Model):
-
-
-    def upload_path(instance,filename):
-        return '/images/'.join([filename])
-
-
-    bname = models.CharField(max_length = 300)
-    #author = models.ManyToManyField(Author)
-    author = models.CharField(max_length=300)
-    revision = models.CharField(max_length = 4)
-    #publication = models.ForeignKey(Publication, on_delete=models.DO_NOTHING)
-    publication = models.CharField(max_length=300)
-    category = models.ForeignKey(Category, on_delete=models.DO_NOTHING)
-    image = models.ImageField(upload_to=upload_path,blank=True)
-    #subcategory = models.ManyToManyField(SubCategory)#, on_delete=models.DO_NOTHING, null=True)
-    description = models.TextField(blank=True)
-    def __str__(self):
-        return self.bname
-
 class NewUser(AbstractBaseUser, PermissionsMixin):
-    book = models.ManyToManyField(Books,blank=True)
+    #book = models.ManyToManyField(Books,blank=True)
     user_name = models.CharField(max_length=50, unique=True)
     first_name = models.CharField(max_length = 50)
     last_name = models.CharField(max_length = 50)
@@ -92,6 +72,28 @@ class NewUser(AbstractBaseUser, PermissionsMixin):
 
     def __str__(self):
         return self.first_name + ' ' + self.last_name
+
+class Books(models.Model):
+
+
+    def upload_path(instance,filename):
+        return '/images/'.join([filename])
+
+
+    bname = models.CharField(max_length = 300)
+    user = models.ManyToManyField(NewUser, blank = True)
+    #author = models.ManyToManyField(Author)
+    author = models.CharField(max_length=300)
+    revision = models.CharField(max_length = 4)
+    #publication = models.ForeignKey(Publication, on_delete=models.DO_NOTHING)
+    publication = models.CharField(max_length=300)
+    category = models.ForeignKey(Category, on_delete=models.DO_NOTHING)
+    image = models.ImageField(upload_to=upload_path,blank=True)
+    #subcategory = models.ManyToManyField(SubCategory)#, on_delete=models.DO_NOTHING, null=True)
+    description = models.TextField(blank=True)
+    def __str__(self):
+        return self.bname
+
 class Email(models.Model):
     email = models.EmailField(unique=True)
     is_registered = models.BooleanField(default=False)
