@@ -2,6 +2,9 @@ from django.db import models
 from django.core.validators import MaxValueValidator
 from django.contrib.auth.models import AbstractBaseUser, BaseUserManager, PermissionsMixin
 from django.utils.translation import gettext_lazy as _
+from django.utils import timezone
+from cloudinary.models import CloudinaryField
+
 
 class Category(models.Model):
     category = models.CharField(max_length = 50)
@@ -39,6 +42,12 @@ class CustomAccountManager(BaseUserManager):
         return user
 
 class Books(models.Model):
+
+
+    def upload_path(instance,filename):
+        return '/images/'.join([filename])
+
+
     bname = models.CharField(max_length = 300)
     #author = models.ManyToManyField(Author)
     author = models.CharField(max_length=300)
@@ -47,11 +56,16 @@ class Books(models.Model):
     publication = models.CharField(max_length=300)
     category = models.ManyToManyField(Category)
     description = models.TextField(blank=True)
+    image = models.ImageField(upload_to=upload_path,blank=True)
+    # slug = models.SlugField(max_length=200,null=True)
+    # created = models.DateTimeField(timezone.now,null=True,blank=True,)
+
     def __str__(self):
         return self.bname
 
 class NewUser(AbstractBaseUser, PermissionsMixin):
-    book = models.ManyToManyField(Books,blank=True)
+
+    book = models.ManyToManyField(Books,null=True,blank=True)
     user_name = models.CharField(max_length=50, unique=True)
     first_name = models.CharField(max_length = 50)
     last_name = models.CharField(max_length = 50)

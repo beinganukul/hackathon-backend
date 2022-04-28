@@ -6,5 +6,9 @@ from .models import  Category, Books, NewUser, Email, NewUser
 admin.site.register(Category)
 admin.site.register(NewUser)
 admin.site.register(Books)
-admin.site.register(Email)
 
+# @admin.register(Books)
+# class AuthorAdmin(admin.ModelAdmin):
+#     prepopulated_fields = {'slug':('bname',),}
+
+admin.site.register(Email)

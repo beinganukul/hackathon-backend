@@ -9,12 +9,12 @@ class UserSerializer(serializers.ModelSerializer):
 #class AuthorSerializer(serializers.ModelSerializer):
 #    class Meta:
 #        model = Author
-#        fields = '__all__' 
+#        fields = '__all__'
 
 class EmailSerializer(serializers.ModelSerializer):
     class Meta:
         model = Email
-        fields = '__all__' 
+        fields = '__all__'
 
 class BookSerializer(serializers.ModelSerializer):
     #user = UserSerializer(many=True)
@@ -25,7 +25,7 @@ class BookSerializer(serializers.ModelSerializer):
 class ProfileSerializer(serializers.ModelSerializer):
     class Meta:
         model = NewUser
-        fields = ['id', 'user_name', 'first_name', 'last_name', 'phone', 'email', 'credit','invites', 'note'] 
+        fields = ['id', 'user_name', 'first_name', 'last_name', 'phone', 'email', 'credit','invites', 'note']
 
 class RegistrationSerializer(serializers.ModelSerializer):
     password2 = serializers.CharField(style={"input_type": "password"}, write_only=True)
