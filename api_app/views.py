@@ -83,7 +83,7 @@ class RegistrationView(APIView):
                 tochange.is_registered = True
                 tochange.save(update_fields=['is_registered'])
                 return Response(serializer.data)#, status=status.HTTP_201_CREATED)
-        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+        return Response(serializer.errors)#, status=status.HTTP_400_BAD_REQUEST)
 
 @api_view(['POST'])
 @permission_classes([IsAuthenticated])
