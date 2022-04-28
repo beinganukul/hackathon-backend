@@ -1,10 +1,27 @@
 from rest_framework import serializers
-from api_app.models import Books, NewUser, Email
-
+from api_app.models import Books, NewUser, Email, Category, SubCategory
+from drf_writable_nested.serializers import WritableNestedModelSerializer
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = NewUser
         fields = ['id', 'first_name', 'last_name']
+
+class SubCategorySerializer(serializers.ModelSerializer):
+    #category = CategorySerializer()
+    class Meta:
+        model = SubCategory
+        fields = '__all__'
+
+class CategorySerializer(WritableNestedModelSerializer):
+        subcategory = SubCategorySerializer()
+        class Meta:
+            model = Category
+            fields = '__all__'
+
+
+
+
+
 
 #class AuthorSerializer(serializers.ModelSerializer):
 #    class Meta:
@@ -16,11 +33,14 @@ class EmailSerializer(serializers.ModelSerializer):
         model = Email
         fields = '__all__' 
 
-class BookSerializer(serializers.ModelSerializer):
+class BookSerializer(WritableNestedModelSerializer):
     #user = UserSerializer(many=True)
+    category = CategorySerializer()
     class Meta:
         model = Books
         fields = '__all__'
+    #def save(self):
+
 
 class ProfileSerializer(serializers.ModelSerializer):
     class Meta:

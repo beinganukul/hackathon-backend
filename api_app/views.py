@@ -1,7 +1,7 @@
 from rest_framework.response import Response
 from rest_framework.decorators import api_view, permission_classes
-from api_app.models import Books, NewUser, Email
-from .serializers import BookSerializer, UserSerializer, ProfileSerializer, RegistrationSerializer, EmailSerializer# PasswordChangeSerializer
+from api_app.models import Books, NewUser, Email, Category, SubCategory
+from .serializers import BookSerializer, UserSerializer, ProfileSerializer, RegistrationSerializer, EmailSerializer, CategorySerializer, SubCategorySerializer# PasswordChangeSerializer
 from django.contrib.auth import authenticate, login, logout
 from django.shortcuts import render
 from django.contrib.auth.decorators import login_required
@@ -82,7 +82,7 @@ class RegistrationView(APIView):
                 tochange = Email.objects.get(email__exact=request.data["email"])
                 tochange.is_registered = True
                 tochange.save(update_fields=['is_registered'])
-                return Response(serializer.data, status=status.HTTP_201_CREATED)
+                return Response(serializer.data)#, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 @api_view(['POST'])

@@ -3,10 +3,24 @@ from django.core.validators import MaxValueValidator
 from django.contrib.auth.models import AbstractBaseUser, BaseUserManager, PermissionsMixin
 from django.utils.translation import gettext_lazy as _
 
+class SubCategory(models.Model):
+    subcategory = models.CharField(max_length = 50)
+    #PLUS2CHOICES = [("Science"), ( "Management"), ("Commerce"), ("Others")]
+    #BACHELORSCHOICES = [("CSIT"), ( "BCA"), ("BIT"), ("Arts"), ("BBA")]
+    #MASTERSCHOICES = [("English"), ( "Arts"), ("Education"), ("Computer Science"), ("Nepali"), ("Management"]
+    #SECONDARYCHOICES = [("Under class 5"), ( "Under class 5"), ("Under class 10"), ("Nursery")]
+    def __str__(self):
+        return self.subcategory
+
 class Category(models.Model):
-    category = models.CharField(max_length = 50)
+    CHOICES = [("+2","+2"), ( "Bachelors","Bachelors"), ("Masters","Masters"), ("Secondary","Secondary")]
+    category = models.CharField(choices=CHOICES,max_length = 50)
+    subcategory = models.ForeignKey(SubCategory, on_delete=models.DO_NOTHING, default=None)
     def __str__(self):
         return self.category
+
+
+
 
 #class Publication(models.Model):
 #    pname = models.CharField(max_length = 300)
@@ -45,7 +59,8 @@ class Books(models.Model):
     revision = models.CharField(max_length = 4)
     #publication = models.ForeignKey(Publication, on_delete=models.DO_NOTHING)
     publication = models.CharField(max_length=300)
-    category = models.ManyToManyField(Category)
+    category = models.ForeignKey(Category, on_delete=models.DO_NOTHING)
+    #subcategory = models.ManyToManyField(SubCategory)#, on_delete=models.DO_NOTHING, null=True)
     description = models.TextField(blank=True)
     def __str__(self):
         return self.bname
