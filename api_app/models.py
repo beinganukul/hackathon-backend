@@ -51,7 +51,7 @@ class Books(models.Model):
         return self.bname
 
 class NewUser(AbstractBaseUser, PermissionsMixin):
-    book = models.ManyToManyField(Books,null=True,blank=True)
+    book = models.ManyToManyField(Books,blank=True)
     user_name = models.CharField(max_length=50, unique=True)
     first_name = models.CharField(max_length = 50)
     last_name = models.CharField(max_length = 50)
