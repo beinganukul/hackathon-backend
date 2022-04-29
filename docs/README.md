@@ -82,16 +82,24 @@ send **GET** request to 'http://127.0.0.1:8080/api/v1/books'
 
 * **To post the book details ** (*v1/create/book*)
 
-​send **POST** request 'http://127.0.0.1:8080/api/v1/create/book' with **bearer token** and **JSON** as below
+send **POST** request 'http://127.0.0.1:8080/api/v1/create/book' with **bearer token** and **Multipart Form** as below
 
 ```
-{
-	"bname": "The book ",
-	"author": "Mr Gilfoyel ",
-	"revision": "4th",
-	"publication": " the example publication ",
-	"category": [" choose from category "]
-}
+banme : "book name"
+user = ["1"]
+author = "author name"
+revision = "4th"
+publication = "publication name"
+category = 	"category": {
+		"subcategory" : {												// this is multiline text
+			"subcategory":"CSIT"
+		},
+		"category":"Bachelors"
+	}
+	
+image = upload image using FormData
+description = "description for the book"
+
 ```
 
 

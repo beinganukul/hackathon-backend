@@ -82,14 +82,11 @@ class Books(models.Model):
 
     bname = models.CharField(max_length = 300)
     user = models.ManyToManyField(NewUser, blank = True)
-    #author = models.ManyToManyField(Author)
     author = models.CharField(max_length=300)
     revision = models.CharField(max_length = 4)
-    #publication = models.ForeignKey(Publication, on_delete=models.DO_NOTHING)
     publication = models.CharField(max_length=300)
     category = models.ForeignKey(Category, on_delete=models.DO_NOTHING)
     image = models.ImageField(upload_to=upload_path,blank=True)
-    #subcategory = models.ManyToManyField(SubCategory)#, on_delete=models.DO_NOTHING, null=True)
     description = models.TextField(blank=True)
     def __str__(self):
         return self.bname
