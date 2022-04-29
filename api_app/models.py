@@ -88,6 +88,7 @@ class Books(models.Model):
     category = models.ForeignKey(Category, on_delete=models.DO_NOTHING)
     image = models.ImageField(upload_to=upload_path,blank=True)
     description = models.TextField(blank=True)
+    is_sold = models.BooleanField(default=False)
     def __str__(self):
         return self.bname
 

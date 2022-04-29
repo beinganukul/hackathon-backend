@@ -12,6 +12,7 @@ urlpatterns = [
         path('v1/account/register', views.RegistrationView.as_view()), 
         path('v1/account/logout', views.userlogout),
         path('v1/account/profile', views.getProfile),
+        path('v1/account/profile/edit', views.updateProfile),
         path('v1/create/book', views.putBook),
         #path('v1/account/change-password', views.ChangePasswordView.as_view()),
         ]

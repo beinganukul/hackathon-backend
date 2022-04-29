@@ -40,7 +40,10 @@ class BookSerializer(WritableNestedModelSerializer):
         model = Books
         fields = '__all__'
     #def save(self):
-
+class UpdateProfileSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = NewUser
+        fields = ['id', 'user_name', 'first_name', 'last_name', 'phone', 'email', 'note']
 
 class ProfileSerializer(serializers.ModelSerializer):
     class Meta:
