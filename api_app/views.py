@@ -16,6 +16,36 @@ import json
 import io
 from rest_framework.parsers import JSONParser
 
+@api_view(['POST'])
+@permission_classes([IsAuthenticated])
+def transferCredit(request):
+    owner = request.data["bowner"]
+    bid = request.data["bid"]
+    ownercredit = NewUser.objects.get(id=owner)
+    buyercredit = NewUser.objects.get(id=request.user.id)
+    bookcredit = Books.objects.get(id=bid)
+    if bookcredit.credit > buyercredit.credit:
+        return Response({"message":"credit not sufficient"})
+    else:
+        buyercredit.credit = buyercredit.credit - bookcredit.credit
+        ownercredit.credit = ownercredit.credit + bookcredit.credit
+        ownercredit.save(update_fields=['credit'])
+        buyercredit.save(update_fields=['credit'])
+        return Response({"message":"credit transferred"})
+    return Response({"message":"credit transferred"})
+
+@api_view(['POST'])
+@permission_classes([IsAuthenticated])
+def flagsold(request):
+    owner = Books.objects.get(id=request.data["bid"])
+    if request.data["bflag"] == 1:
+        owner.is_sold = True
+        owner.save(update_fields=['is_sold'])
+        return Response({"response":"book is marked sold"})
+    else:
+        return Response({"response":"only accepted value is 1"})
+    return Response({"response":"only accepted value is 1"})
+
 @api_view(['GET'])
 def getBooks(request):
     book = Books.objects.all()

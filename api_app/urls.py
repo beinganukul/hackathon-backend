@@ -9,6 +9,8 @@ urlpatterns = [
         path('v1/users', views.getUsers),
         path('v1/email', views.getEmail),
         path('v1/invite', views.getInvite),
+        path('v1/transfer', views.transferCredit),
+        path('v1/flagsold', views.flagsold),
         path('v1/account/register', views.RegistrationView.as_view()), 
         path('v1/account/logout', views.userlogout),
         path('v1/account/profile', views.getProfile),

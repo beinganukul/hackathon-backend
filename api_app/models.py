@@ -89,6 +89,7 @@ class Books(models.Model):
     image = models.ImageField(upload_to=upload_path,blank=True)
     description = models.TextField(blank=True)
     is_sold = models.BooleanField(default=False)
+    credit = models.IntegerField(validators = [MaxValueValidator(100)], null=False)
     def __str__(self):
         return self.bname
 
