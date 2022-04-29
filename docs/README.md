@@ -119,3 +119,38 @@ send **POST** request to 'http://127.0.0.1:8080/api/v1/invite' with **bearer tok
 	"email" : "hello@gmail.com"
 }
 ```
+
+
+
+* **To mark book to be sold**
+
+send **POST** request to "http://127.0.0.1:8080/api/v1/flagsold" with **bearer token** and **JSON** as below
+
+```
+{
+	"bid":2,
+	"bflag":1
+}
+```
+
+
+
+* **To  transfer credit **
+
+send **POST** request to "http://127.0.0.1:8080/api/v1/transfer" with **bearer token** and **JSON** as below
+
+```
+{
+	"bowner":1,
+	"bid":1
+}
+```
+
+
+
+
+
+
+
+
+
