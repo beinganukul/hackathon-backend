@@ -4,7 +4,7 @@ from drf_writable_nested.serializers import WritableNestedModelSerializer
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = NewUser
-        fields = ['id', 'first_name', 'last_name', 'book']
+        fields = ['id', 'first_name', 'last_name']
 
 class SubCategorySerializer(serializers.ModelSerializer):
     #category = CategorySerializer()
