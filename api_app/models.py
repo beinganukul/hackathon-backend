@@ -3,35 +3,21 @@ from django.core.validators import MaxValueValidator
 from django.contrib.auth.models import AbstractBaseUser, BaseUserManager, PermissionsMixin
 from django.utils.translation import gettext_lazy as _
 
-class SubCategory(models.Model):
-    subcategory = models.CharField(max_length = 50)
-    #PLUS2CHOICES = [("Science"), ( "Management"), ("Commerce"), ("Others")]
-    #BACHELORSCHOICES = [("CSIT"), ( "BCA"), ("BIT"), ("Arts"), ("BBA")]
-    #MASTERSCHOICES = [("English"), ( "Arts"), ("Education"), ("Computer Science"), ("Nepali"), ("Management"]
-    #SECONDARYCHOICES = [("Under class 5"), ( "Under class 5"), ("Under class 10"), ("Nursery")]
-    def __str__(self):
-        return self.subcategory
-
-class Category(models.Model):
-    CHOICES = [("+2","+2"), ( "Bachelors","Bachelors"), ("Masters","Masters"), ("Secondary","Secondary")]
-    category = models.CharField(choices=CHOICES,max_length = 50)
-    subcategory = models.ForeignKey(SubCategory, on_delete=models.DO_NOTHING, default=None)
-    def __str__(self):
-        return self.category
-
-
-
-
-#class Publication(models.Model):
-#    pname = models.CharField(max_length = 300)
+#class SubCategory(models.Model):
+#    subcategory = models.CharField(max_length = 50)
+#    #PLUS2CHOICES = [("Science"), ( "Management"), ("Commerce"), ("Others")]
+#    #BACHELORSCHOICES = [("CSIT"), ( "BCA"), ("BIT"), ("Arts"), ("BBA")]
+#    #MASTERSCHOICES = [("English"), ( "Arts"), ("Education"), ("Computer Science"), ("Nepali"), ("Management"]
+#    #SECONDARYCHOICES = [("Under class 5"), ( "Under class 5"), ("Under class 10"), ("Nursery")]
 #    def __str__(self):
-#        return self.pname
-
-#class Author(models.Model):
-#    author_first_name = models.CharField(max_length = 50)
-#    author_last_name = models.CharField(max_length = 50)
+#        return self.subcategory
+#
+#class Category(models.Model):
+#    CHOICES = [("+2","+2"), ( "Bachelors","Bachelors"), ("Masters","Masters"), ("Secondary","Secondary")]
+#    category = models.CharField(choices=CHOICES,max_length = 50)
+#    subcategory = models.ForeignKey(SubCategory, on_delete=models.DO_NOTHING, default=None)
 #    def __str__(self):
-#        return self.author_first_name + ' ' + self.author_last_name
+#        return self.category
 
 class CustomAccountManager(BaseUserManager):
     def create_superuser(self, email, user_name, first_name, last_name, password, **other_fields):
@@ -85,7 +71,9 @@ class Books(models.Model):
     author = models.CharField(max_length=300)
     revision = models.CharField(max_length = 4)
     publication = models.CharField(max_length=300)
-    category = models.ForeignKey(Category, on_delete=models.DO_NOTHING)
+    category = models.CharField(max_length=300)
+    subcategory = models.CharField(max_length=300)
+    #category = models.ForeignKey(Category, on_delete=models.DO_NOTHING)
     image = models.ImageField(upload_to=upload_path,blank=True)
     description = models.TextField(blank=True)
     is_sold = models.BooleanField(default=False)

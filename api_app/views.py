@@ -1,7 +1,7 @@
 from rest_framework.response import Response
 from rest_framework.decorators import api_view, permission_classes
-from api_app.models import Books, NewUser, Email, Category, SubCategory
-from .serializers import BookSerializer, UserSerializer, ProfileSerializer, RegistrationSerializer, EmailSerializer, CategorySerializer, SubCategorySerializer, UpdateProfileSerializer# PasswordChangeSerializer
+from api_app.models import Books, NewUser, Email#, Category, SubCategory
+from .serializers import BookSerializer, UserSerializer, ProfileSerializer, RegistrationSerializer, EmailSerializer, UpdateProfileSerializer#, CategorySerializer, SubCategorySerializer, UpdateProfileSerializer# PasswordChangeSerializer
 from django.contrib.auth import authenticate, login, logout
 from django.shortcuts import render
 from django.contrib.auth.decorators import login_required
@@ -36,6 +36,13 @@ def transferCredit(request):
 
 @api_view(['POST'])
 @permission_classes([IsAuthenticated])
+def singlebook(request):
+    book = Books.objects.all(id=request.data["id"])
+    serializer = BookSerializer(book, many=True)
+    return Response(serializer.data)
+
+@api_view(['POST'])
+@permission_classes([IsAuthenticated])
 def flagsold(request):
     owner = Books.objects.get(id=request.data["bid"])
     if request.data["bflag"] == 1:
@@ -48,7 +55,7 @@ def flagsold(request):
 
 @api_view(['GET'])
 def getBooks(request):
-    book = Books.objects.all()
+    book = Books.objects.filter(is_sold=False)
     serializer = BookSerializer(book, many=True)
     return Response(serializer.data)
 

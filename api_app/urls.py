@@ -6,6 +6,7 @@ urlpatterns = [
         path('v1/token/', TokenObtainPairView.as_view(), name='token_obtain_pair'),
         path('v1/token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
         path('v1/books', views.getBooks),
+        path('v1/book', views.singlebook),
         path('v1/users', views.getUsers),
         path('v1/email', views.getEmail),
         path('v1/invite', views.getInvite),
